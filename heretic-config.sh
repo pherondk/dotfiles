@@ -98,50 +98,14 @@ echo ''
 git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.config/nvim/colors/wombat 
 mv ~/.config/nvim/colors/wombat/colors/* ~/.config/nvim/colors/
 
-# Midnight commander install
-echo ''
-echo "Now installing Midnight commander..."
-echo ''
-brew install mc
-
-# Speedtest-cli and jq install
-brew install jq speedtest-cli
-
-# App Installs
-echo ''
-echo "Now installing misc software:"
-echo ''
-brew install bat ccze fzf googler rtv ripgrep reattach-to-user-namespace
-
 # Apps to install
 
 apps=(
-		'mc'
-		'appcleaner'
-		'microsoft-edge'
-		'middleclick'
-		'openemu'
-		'powershell'
-		'sound-control'
-		'spotify'
-		'synergy'
-		'iterm2'
-		'vmware-remote-console'
-		'the-unarchiver'
-		'1password'
-		'alfred'
-		'authy'
-		'bartender'
-		'mc'
-		'jq'
-		'speedtest-cli'
-		'bat'
-		'ccze'
-		'fzf'
-		'googler'
-		'rtv'
-		'rigrep'
-		'reattach-to-user-namespace'
+		'mc' 'appcleaner' 'microsoft-edge' 'middleclick' 'openemu'
+		'powershell' 'sound-control' 'spotify' 'synergy' 'iterm2'
+		'vmware-remote-console'	'the-unarchiver' '1password'
+		'alfred' 'authy' 'bartender' 'mc' 'jq' 'speedtest-cli'
+		'bat' 'ccze' 'fzf' 'googler' 'rtv' 'rigrep''reattach-to-user-namespace'
 		'tmux' )
 
 for i in ${apps[@]}; do
