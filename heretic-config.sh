@@ -33,19 +33,19 @@ ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
 source $HOME/.vimrc
 
 # Installing git completion
-echo ''
-echo "Now installing git and bash-completion..."
-brew install git && brew install bash-completion
-
-echo ''
-echo "Now configuring git-completion..."
-GIT_VERSION=`git --version | awk '{print $3}'`
-URL="https://raw.github.com/git/git/v$GIT_VERSION/contrib/completion/git-completion.bash"
-echo ''
-echo "Downloading git-completion for git version: $GIT_VERSION..."
-if ! curl "$URL" --silent --output "$HOME/.git-completion.bash"; then
-	echo "ERROR: Couldn't download completion script. Make sure you have a working internet connection." && exit 1
-fi
+# echo ''
+# echo "Now installing git and bash-completion..."
+# brew install git && brew install bash-completion
+#
+# echo ''
+# echo "Now configuring git-completion..."
+# GIT_VERSION=`git --version | awk '{print $3}'`
+# URL="https://raw.github.com/git/git/v$GIT_VERSION/contrib/completion/git-completion.bash"
+# echo ''
+# echo "Downloading git-completion for git version: $GIT_VERSION..."
+# if ! curl "$URL" --silent --output "$HOME/.git-completion.bash"; then
+# 	echo "ERROR: Couldn't download completion script. Make sure you have a working internet connection." && exit 1
+# fi
 
 # oh-my-zsh install
 echo ''
@@ -113,34 +113,16 @@ echo "Now installing misc software:"
 echo ''
 brew install bat ccze fzf googler rtv ripgrep reattach-to-user-namespace
 
-# More Apps
-echo ''
-echo "Installing AppCleaner"
-brew cask install appcleaner
-echo ''
-echo "Installing Microsoft Edge"
-brew cask install microsoft-edge
-echo ''
-echo "Installing MiddleClick"
-brew cask install middleclick
-echo ''
-echo "Installing OpenEMU"
-brew cask install openemu
-echo ''
-echo "Installing Powershell"
-brew cask install powershell
-echo ''
-echo "Installing Sound-Control"
-brew cask install sound-control
-echo ''
-echo "Installing Spotify"
-brew cask install spotify
-echo ''
-echo "Installing Synergy"
-brew cask install synergy
-echo ''
-echo "Installing iTerm2"
-brew cask install iterm2
+# Apps to install
+
+apps=( 'mc' 'appcleaner' 'microsoft-edge' 'middleclick' 'openemu' 'powershell' 'sound-control' 'spotify' 'synergy' 'iterm2' 'vmware-remote-console' 'the-unarchiver' '1password' 'alfred' 'authy' 'bartender' 'mc' 'jq' 'speedtest-cli' 'bat' 'ccze' 'fzf' 'googler' 'rtv' 'rigrep' 'reattach-to-user-namespace' )
+
+for i in ${apps[@]}; do
+		echo "Installing $i ..."
+		brew search $i
+		# brew cask install $i
+		echo ''
+done
 
 
 # Set default shell to zsh
