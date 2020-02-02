@@ -72,6 +72,11 @@ echo ''
 echo "Now retrieving .ZSHRC..."
 curl https:/raw.githubusercontent.com/pherondk/dotfiles/master/.zshrc > $HOME/.zshrc-dotfiles
 
+# Get and install fzf-marks
+echo ''
+echo 'Fetching fzf-marks...'
+git clone https://github.com/urbainvaes/fzf-marks $HOME/fzf-marks
+
 # vimrc vundle install
 # echo ''
 # echo "Now installing vundle..."
