@@ -315,10 +315,9 @@ export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
 # ##################################################################
 # Source
 # ##################################################################
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /Users/heretic/git/fzf-marks/fzf-marks.plugin.zsh
+[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+source $HOME/git/fzf-marks/fzf-marks.plugin.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-. ~/git/z/z.sh
 eval $(thefuck --alias)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
