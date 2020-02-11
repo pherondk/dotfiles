@@ -24,11 +24,13 @@ brew install neovim
 # Create directories for neovim config
 echo ''
 echo "Creating directories for Neovim..."
-echo "$HOME/.config/nvim/autoload"
-echo "$HOME/.config/nvim/bundle"
-echo "$HOME/.config/nvim/colors"
-echo "$HOME/.config/nvim/plugged"
 mkdir -p $HOME/.config/nvim/{autoload,bundle,colors,plugged}
+# Get .vimrc/init.vim
+echo ''
+echo "Now retrieving .VIMRC..."
+curl https://raw.githubusercontent.com/pherondk/dotfiles/master/.vimrc > $HOME/.config/nvim/init.vim
+ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
+source $HOME/.vimrc
 
 # Installing git completion
 # echo ''
@@ -55,25 +57,30 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 echo ''
 echo "Now installing oh-my-zsh plugins..."
 echo ''
-git clone https://github.com/zsh-users/zsh-completions $HOME/oh-my-zsh/custom/plugins/zsh-completions
-git clone git://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+git clone git://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting
 
 # powerlevel10k install
 echo ''
 echo "Now installing powerlevel10k..."
 echo ''
-git clone https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+
+# Get .zshrc from my dotfiles repo
+echo ''
+echo "Now retrieving .ZSHRC..."
+curl https:/raw.githubusercontent.com/pherondk/dotfiles/master/.zshrc > $HOME/.zshrc-dotfiles
 
 # Get and install fzf-marks
 echo ''
 echo 'Fetching fzf-marks...'
 git clone https://github.com/urbainvaes/fzf-marks $HOME/fzf-marks
 
-# Fetch the fuck
+# Get and install thefuck
 echo ''
-echo "Fetching the fuck ..."
-git clone https://github.com/nvbn/thefuck
+echo "Fetching thefuck ..."
+git clone 
 
 # vimrc vundle install
 # echo ''
@@ -101,25 +108,15 @@ echo ''
 git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.config/nvim/colors/wombat 
 mv ~/.config/nvim/colors/wombat/colors/* ~/.config/nvim/colors/
 
-# Get .zshrc from my dotfiles repo
-echo ''
-echo "Now retrieving .ZSHRC..."
-curl https:/raw.githubusercontent.com/pherondk/dotfiles/master/.zshrc > $HOME/.zshrc-dotfiles
-
-# Get .vimrc/init.vim
-echo ''
-echo "Now retrieving .VIMRC..."
-curl https://raw.githubusercontent.com/pherondk/dotfiles/master/.vimrc > $HOME/.config/nvim/init.vim
-ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
-echo ''
-source $HOME/.vimrc
 # Apps to install
 
 apps=(
-		'appcleaner' 'microsoft-edge' 'middleclick' 'openemu'
-		'sound-control' 'spotify' 'synergy' 'iterm2'
+		'mc' 'appcleaner' 'microsoft-edge' 'middleclick' 'openemu'
+		'powershell' 'sound-control' 'spotify' 'synergy' 'iterm2'
 		'vmware-remote-console'	'the-unarchiver' '1password'
-		'alfred' 'authy' 'bartender' 'mc' 'jq' )
+		'alfred' 'authy' 'bartender' 'mc' 'jq' 'speedtest-cli'
+		'bat' 'ccze' 'fzf' 'googler' 'rtv' 'rigrep' 'reattach-to-user-namespace'
+		'tmux' )
 
 for i in ${apps[@]}; do
 		echo ''
@@ -129,20 +126,6 @@ for i in ${apps[@]}; do
 		echo ''
 done
 
-# Utilities to install
-
-utilities=(
-		'bat' 'ccze' 'fzf' 'googler' 'rtv' 'ripgrep' 'reattach-to-user-namespace'
-		'tmux' 'jq' 'speedtest-cli'
-		)
-
-for i in ${utilities[@]}; do
-		echo ''
-		echo "Installing command line utilities, etc...."
-		brew search $i
-		# brew cask install $i
-		echo ''
-done
 
 # Set default shell to zsh
 echo ''
