@@ -1,0 +1,9 @@
+# Tail system logs on syslog server
+#
+
+echo
+clear
+
+ssh -i ~/.ssh/id_rsa.yggdrasil-root root@yggdrasil -t "tail -f /var/log/messages | ccze -A -o nolookups | grep -v -f ~/scripts/filter.txt"
+
+
