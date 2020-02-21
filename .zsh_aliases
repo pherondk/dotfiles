@@ -1,0 +1,176 @@
+# ##################################################################
+# Aliases
+# ##################################################################
+
+alias reload='source ~/.zshrc'
+alias ll='ls -alhG'
+alias arping='sudo arping'
+alias gotosleep='pmset sleepnow'
+alias edit='vi ~/.zshrc'
+alias softwareupdate='sudo softwareupdate'
+alias attach='tmuxp load saved'
+alias wireless='networksetup -setairportpower en1 '$1''
+alias shr='netstat -nr'
+alias vi='nvim'
+alias extip='wget ipinfo.io/ip -qO -'
+alias psaux='ps aux | ccze -A -o nolookups'
+alias brewup='brew update && brew upgrade'
+alias pscpu='ps aux | sort -nr -k 3'
+alias pscpu10='ps aux | sort -nr -k 3 | head -10'
+alias psmem='ps aux | sort -nr -k 4'
+alias psmem10='ps aux | sort -nr -k 4 | head -10'
+alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
+alias dockip='docker container inspect --format "{{ .NetworkSettings.IPAddress }}" $1'
+alias dcl='docker container ls'
+alias dcla='docker container ls -a'
+alias dcs='docker container start $1'
+alias dcst='docker container stop $1'
+alias 1pa='op get item $1'
+alias b='~/scripts/b.rb'
+
+# #####################################################################
+# Spotify Aliases
+# #####################################################################
+alias play='spotify play'
+alias spop='spotify open'
+alias spinfo='spotify info'
+alias mute='spotify mute'
+alias back='spotify back'
+alias next='spotify next'
+alias unmute='spotify unmute'
+alias lyrics='spotify lyrics'
+
+# ##################################################################
+# Functions
+# ##################################################################
+#!/usr/bin/env bash
+#
+# -*- shell-script -*-
+#
+# Use fzf (https://github.com/junegunn/fzf) to rapidly select an account,
+# and run 1pass (with optional argument) on the result.
+# To use this, source this file in your .bashrc or .profile as appropriate,
+# e.g.
+#
+# source fuzzpass.sh
+#
+
+fuzzpass() {
+    local arg
+    arg=$1
+    if [ "$arg" == "" ]; then
+        arg="password"
+    fi
+    local item
+    item=$(1pass | fzf);
+    [[ -n "$item" ]] && 1pass "$item" "$arg"
+}
+
+function notify { terminal-notifier -title "$1" -message "$2" }
+
+function piadd() { ymir -t "pihole -a -r $1 $2" }
+function pistatus() { ymir -t "pihole status" }
+function piupdate() { ymir -t "pihole --up" }
+
+function _calcram() {
+    local sum
+    sum=0
+    for i in `ps aux | grep -i "$1" | grep -v "grep" | awk '{print $6}'`; do
+        sum=$(($i + $sum))
+    done
+    sum=$(echo "scale=2; $sum / 1024.0" | bc)
+    echo $sum
+}
+
+function ram() {
+    local sum
+    local app="$1"
+    if [ -z "$app" ]; then
+        echo "First argument - pattern to grep from processes"
+        return 0
+    fi
+    sum=$(_calcram $app)
+    if [[ $sum != "0" ]]; then
+        echo "${fg[blue]}${app}${reset_color} uses ${fg[green]}${sum}${reset_color} MBs of RAM"
+    else
+        echo "No active processes matching pattern '${fg[blue]}${app}${reset_color}'"
+    fi
+}
+
+function rams() {
+    local sum
+    local app="$1"
+    if [ -z "$app" ]; then
+        echo "First argument - pattern to grep from processes"
+        return 0
+    fi
+
+    while true; do
+        sum=$(_calcram $app)
+        if [[ $sum != "0" ]]; then
+                echo -en "${fg[blue]}${app}${reset_color} uses ${fg[green]}${sum}${reset_color} MBs of RAM\r"
+        else
+                echo -en "No actice processes matching pattern '${fg[blue]}${appt}${reset_color}'\r"
+        fi
+        sleep 1
+  done
+}
+
+# for existing aliases
+fzf_alias() {
+  alias | tr = "\t" | fzf | cut -f 1
+}
+
+
+e () {
+        local cols sep
+        cols=$(( COLUMNS / 3 ))
+        sep='{::}'
+        cp -f ~/Library/Application\ Support/Microsoft\ Edge/Default/History /tmp/h
+        sqlite3 -separator $sep /tmp/h "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" | awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' | fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
+
+# c - browse chrome history
+c() {
+  local cols sep
+  cols=$(( COLUMNS / 3 ))
+  sep='{::}'
+
+  cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
+
+# -------------------------------------------------------------------
+# compressed file expander
+# (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)
+# -------------------------------------------------------------------
+ex() {
+    if [[ -f $1 ]]; then
+        case $1 in
+          *.tar.bz2) tar xvjf $1;;
+          *.tar.gz) tar xvzf $1;;
+          *.tar.xz) tar xvJf $1;;
+          *.tar.lzma) tar --lzma xvf $1;;
+          *.bz2) bunzip $1;;
+          *.rar) unrar $1;;
+          *.gz) gunzip $1;;
+          *.tar) tar xvf $1;;
+          *.tbz2) tar xvjf $1;;
+          *.tgz) tar xvzf $1;;
+          *.zip) unzip $1;;
+          *.Z) uncompress $1;;
+          *.7z) 7z x $1;;
+          *.dmg) hdiutil mount $1;; # mount OS X disk images
+          *) echo "'$1' cannot be extracted via >ex<";;
+    esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
