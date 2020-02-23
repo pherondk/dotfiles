@@ -145,6 +145,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias reload='source ~/.zshrc'
 alias ls='ls -alhG'
+alias jj='mac'
 alias arping='sudo arping'
 alias gotosleep='pmset sleepnow'
 alias softwareupdate='sudo softwareupdate'
