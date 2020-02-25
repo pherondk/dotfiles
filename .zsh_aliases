@@ -55,7 +55,7 @@ alias lyrics='spotify lyrics'
 # source fuzzpass.sh
 #
 
-fuzzpass() {
+fuzzpass() { # fuzzy password searching
     local arg
 	arg=$1
     # if [ "$arg" == "" ]; then
@@ -66,13 +66,18 @@ fuzzpass() {
 	echo "$item"
     1pass -p "$item" "$arg"
 }
-function notify { terminal-notifier -title "$1" -message "$2" }
+function notify { #notify from terminal
+		terminal-notifier -title "$1" -message "$2" 
+}
 
-function piadd() { ymir -t "pihole -a -r $1 $2" }
-function pistatus() { ymir -t "pihole status" }
-function piupdate() { ymir -t "pihole --up" }
+function piadd() { #add A record to pihole config for logging
+		ymir -t "pihole -a -r $1 $2" }
+function pistatus() { #show pihole status
+		ymir -t "pihole status" }
+function piupdate() { # update pihole instance
+		ymir -t "pihole --up" }
 
-tkillpane () {
+tkillpane () { #kill tmux panes by number
 		local inst=$(tmux list-panes | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[tmux:kill-pane]'")
 		if [[ -n $inst ]]
 		then
@@ -83,7 +88,7 @@ tkillpane () {
 				done
 		fi
 }
-function _calcram() {
+function _calcram() { #used for ram and rams
     local sum
     sum=0
     for i in `ps aux | grep -i "$1" | grep -v "grep" | awk '{print $6}'`; do
@@ -93,7 +98,7 @@ function _calcram() {
     echo $sum
 }
 
-function ram() {
+function ram() { #shows ram usages by specified process
     local sum
     local app="$1"
     if [ -z "$app" ]; then
@@ -108,7 +113,7 @@ function ram() {
     fi
 }
 
-function rams() {
+function rams() { # ongoing ram usage
     local sum
     local app="$1"
     if [ -z "$app" ]; then
@@ -127,13 +132,12 @@ function rams() {
   done
 }
 
-# for existing aliases
-fzf_alias() {
+fzf_alias() { # for existing aliases
   alias | tr = "\t" | fzf | cut -f 1
-}
+} 
 
 
-e () {
+e () { # browse edge history
         local cols sep
         cols=$(( COLUMNS / 3 ))
         sep='{::}'
@@ -142,8 +146,7 @@ e () {
      from urls order by last_visit_time desc" | awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' | fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
 }
 
-# c - browse chrome history
-c() {
+c() { #browse chrome history
   local cols sep
   cols=$(( COLUMNS / 3 ))
   sep='{::}'
@@ -161,7 +164,7 @@ c() {
 # compressed file expander
 # (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)
 # -------------------------------------------------------------------
-ex() {
+ex() { # compressed file expander
     if [[ -f $1 ]]; then
         case $1 in
           *.tar.bz2) tar xvjf $1;;
