@@ -26,7 +26,7 @@ export DISABLE_AUTO_TITLE='true'
 
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/heretic/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -154,7 +154,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 [ -f $HOME/git/fzf-marks/fzf-marks.plugin.zsh ] && source $HOME/git/fzf-marks/fzf-marks.plugin.zsh
 [ -f $HOME/.zsh_aliases ] && source $HOME/.zsh_aliases
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/local/share/zsh-syntax-highlightint/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 eval $(thefuck --alias)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
