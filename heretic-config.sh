@@ -78,7 +78,7 @@ fi
 if [ -f "$HOME/.zsh_aliases" ]
 then
 		echo "Backing up existing file"
-		today=$(data +"%m_%d_%Y")
+		today=$(date +"%m_%d_%Y")
 		cp -v $HOME/.zsh_aliases "$HOME/.zsh_aliases_$today" && rm -rf $HOME/.zsh_aliases
 		echo ''
 		echo "Linking to dotfiles/.zsh_aliases"
