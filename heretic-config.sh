@@ -26,6 +26,8 @@ brew install neovim
 echo ''
 echo "Creating directories for Neovim..."
 mkdir -p $HOME/.config/nvim/{autoload,bundle,colors,plugged}
+echo ''
+echo "Linking .vimrc to init.vim"
 ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
 source $HOME/.vimrc
 
@@ -92,12 +94,6 @@ fi
 # echo ''
 # git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-# Pathogen install
-# echo ''
-# echo "Now installing Pathogen..."
-# echo ''
-# mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-	# curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # Nerdtree for vim install
 echo ''
@@ -105,45 +101,38 @@ echo "Now installing Nerdtree for Vim..."
 echo ''
 git clone https://github.com/scrooloose/nerdtree.git ~/.config/nvim/bundle/nerdtree
 
-# Vim color scheme install
-echo ''
-echo "Now installing vim wombat color scheme..."
-echo ''
-git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.config/nvim/colors/wombat 
-mv ~/.config/nvim/colors/wombat/colors/* ~/.config/nvim/colors/
-
-# Midnight commander install
-echo ''
-echo "Now installing Midnight commander..."
-echo ''
-brew install mc
+# # Vim color scheme install
+# echo ''
+# echo "Now installing vim wombat color scheme..."
+# echo ''
+# git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.config/nvim/colors/wombat 
+# mv ~/.config/nvim/colors/wombat/colors/* ~/.config/nvim/colors/
 
 # Speedtest-cli and jq install
-brew install jq speedtest-cli
+# brew install jq speedtest-cli
 
 # App Installs
 echo ''
-echo "Now installing misc software:"
+echo "Now installing utilities"
 echo ''
 brew install bat ccze fzf googler rtv ripgrep reattach-to-user-namespace
 
 # Apps to install
-
-apps=(
-		'mc' 'appcleaner' 'microsoft-edge' 'middleclick' 'openemu'
-		'powershell' 'sound-control' 'spotify' 'synergy' 'iterm2'
-		'vmware-remote-console'	'the-unarchiver' '1password'
-		'alfred' 'authy' 'bartender' 'mc' 'jq' 'speedtest-cli'
-		'bat' 'ccze' 'fzf' 'googler' 'rtv' 'rigrep' 'reattach-to-user-namespace'
-		'tmux' )
-
-for i in ${apps[@]}; do
-		echo "Installing $i ..."
-		brew search $i
-		# brew cask install $i
-		echo ''
-done
-
+#
+# apps=(
+# 		'appcleaner' 'microsoft-edge' 'middleclick' 'openemu'
+# 		'powershell' 'sound-control' 'spotify' 'synergy' 'iterm2'
+# 		'vmware-remote-console'	'the-unarchiver' '1password'
+# 		'alfred' 'authy' 'bartender' 
+# 		)
+#
+# for i in ${apps[@]}; do
+# 		echo "Installing $i ..."
+# 		brew search $i
+# 		# brew cask install $i
+# 		echo ''
+# done
+#
 
 # Set default shell to zsh
 echo ''
