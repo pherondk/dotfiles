@@ -121,7 +121,7 @@ function rams() {
         if [[ $sum != "0" ]]; then
                 echo -en "${fg[blue]}${app}${reset_color} uses ${fg[green]}${sum}${reset_color} MBs of RAM\r"
         else
-                echo -en "No actice processes matching pattern '${fg[blue]}${appt}${reset_color}'\r"
+                echo -en "No active processes matching pattern '${fg[blue]}${appt}${reset_color}'\r"
         fi
         sleep 1
   done
