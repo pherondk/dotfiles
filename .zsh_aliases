@@ -4,6 +4,7 @@
 
 alias reload='source ~/.zshrc'
 alias ll='ls -alhG'
+alias jj='mac'
 alias arping='sudo arping'
 alias gotosleep='pmset sleepnow'
 alias edit='vi ~/.zshrc'
