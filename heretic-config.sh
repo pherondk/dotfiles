@@ -3,19 +3,13 @@
 # Gather files from dotfiles repo, install homebrew and then install specified software
 # 
 # Copied from https://github.com/jldeen/dotfiles and tweaked to my settings - 01312020-BMF
-#
-# 02242020-heretic- dotfiles will be present if this script exists
-# 					no reason to individually download the files
-#					since I have to have the repo present to use
-#					the files at all
-#					TODO: clean up installs, change search to install, figure out the order to do things
-
 
 # Install brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 echo "Updating package lists..."
 brew update
+
 # zsh install
 echo ''
 echo "Now installing zsh..."
@@ -32,10 +26,6 @@ brew install neovim
 echo ''
 echo "Creating directories for Neovim..."
 mkdir -p $HOME/.config/nvim/{autoload,bundle,colors,plugged}
-# # Get .vimrc/init.vim
-# echo ''
-# echo "Now retrieving .VIMRC..."
-# curl https://raw.githubusercontent.com/pherondk/dotfiles/master/.vimrc > $HOME/.config/nvim/init.vim
 ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
 source $HOME/.vimrc
 
@@ -74,30 +64,27 @@ echo "Now installing powerlevel10k..."
 echo ''
 git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
-# # Get .zshrc from my dotfiles repo
-# Get my dotfiles from https://github.com/pherondk/dotfiles
-echo ''
-echo "Fetching my dotfiles (including a copy of this script)"
-echo ''
-git clone https://github.com/pherondk/dotfiles $HOME/.dotfiles
+# link dotfiles in place
+if [ -f "$HOME/.zshrc" ]
+then
+		echo "Backing up existing file"
+		today=$(date +"%m_%d_%Y")
+		cp -v $HOME/.zshrc "$HOME/.zshrc_$today" && rm -rf $HOME/.zshrc
+		echo ''
+		echo "Linking to dotfiles/.zshrc"
+		ln -v -s $HOME/dotfiles/.zshrc
+fi
 
-echo ''
-echo "Now installing functions and aliases"
-echo ''
-cp -v $HOME/.dotfiles/.zsh_aliases $HOME/
-# echo ''
-# echo "Now retrieving .ZSHRC..."
-# curl https:/raw.githubusercontent.com/pherondk/dotfiles/master/.zshrc > $HOME/.zshrc-dotfiles
+if [ -f "$HOME/.zsh_aliases" ]
+then
+		echo "Backing up existing file"
+		today=$(data +"%m_%d_%Y")
+		cp -v $HOME/.zsh_aliases "$HOME/.zsh_aliases_$today" && rm -rf $HOME/.zsh_aliases
+		echo ''
+		echo "Linking to dotfiles/.zsh_aliases"
+		ln -v -s $HOME/dotfiles/.zsh_aliases
+fi
 
-# Get and install fzf-marks
-echo ''
-echo 'Fetching fzf-marks...'
-git clone https://github.com/urbainvaes/fzf-marks $HOME/fzf-marks
-
-# Get and install thefuck
-echo ''
-echo "Fetching thefuck ..."
-git clone 
 
 # vimrc vundle install
 # echo ''
@@ -125,6 +112,21 @@ echo ''
 git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.config/nvim/colors/wombat 
 mv ~/.config/nvim/colors/wombat/colors/* ~/.config/nvim/colors/
 
+# Midnight commander install
+echo ''
+echo "Now installing Midnight commander..."
+echo ''
+brew install mc
+
+# Speedtest-cli and jq install
+brew install jq speedtest-cli
+
+# App Installs
+echo ''
+echo "Now installing misc software:"
+echo ''
+brew install bat ccze fzf googler rtv ripgrep reattach-to-user-namespace
+
 # Apps to install
 
 apps=(
@@ -136,7 +138,6 @@ apps=(
 		'tmux' )
 
 for i in ${apps[@]}; do
-		echo ''
 		echo "Installing $i ..."
 		brew search $i
 		# brew cask install $i
