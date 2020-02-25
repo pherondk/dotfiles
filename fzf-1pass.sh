@@ -13,6 +13,8 @@
 fuzzpass() {
     local arg
 	arg=$1
+	# leave this section in to see if i can get it working, but otherwise
+	# use "password" or "secret key"
     # if [ "$arg" == "" ]; then
     #     arg="password"
     # fi

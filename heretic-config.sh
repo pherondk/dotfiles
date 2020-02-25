@@ -3,6 +3,13 @@
 # Gather files from dotfiles repo, install homebrew and then install specified software
 # 
 # Copied from https://github.com/jldeen/dotfiles and tweaked to my settings - 01312020-BMF
+#
+# 02242020-heretic- dotfiles will be present if this script exists
+# 					no reason to individually download the files
+#					since I have to have the repo present to use
+#					the files at all
+#					TODO: clean up installs, change search to install, figure out the order to do things
+
 
 # Install brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -25,10 +32,10 @@ brew install neovim
 echo ''
 echo "Creating directories for Neovim..."
 mkdir -p $HOME/.config/nvim/{autoload,bundle,colors,plugged}
-# Get .vimrc/init.vim
-echo ''
-echo "Now retrieving .VIMRC..."
-curl https://raw.githubusercontent.com/pherondk/dotfiles/master/.vimrc > $HOME/.config/nvim/init.vim
+# # Get .vimrc/init.vim
+# echo ''
+# echo "Now retrieving .VIMRC..."
+# curl https://raw.githubusercontent.com/pherondk/dotfiles/master/.vimrc > $HOME/.config/nvim/init.vim
 ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
 source $HOME/.vimrc
 
@@ -67,10 +74,20 @@ echo "Now installing powerlevel10k..."
 echo ''
 git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 
-# Get .zshrc from my dotfiles repo
+# # Get .zshrc from my dotfiles repo
+# Get my dotfiles from https://github.com/pherondk/dotfiles
 echo ''
-echo "Now retrieving .ZSHRC..."
-curl https:/raw.githubusercontent.com/pherondk/dotfiles/master/.zshrc > $HOME/.zshrc-dotfiles
+echo "Fetching my dotfiles (including a copy of this script)"
+echo ''
+git clone https://github.com/pherondk/dotfiles $HOME/.dotfiles
+
+echo ''
+echo "Now installing functions and aliases"
+echo ''
+cp -v $HOME/.dotfiles/.zsh_aliases $HOME/
+# echo ''
+# echo "Now retrieving .ZSHRC..."
+# curl https:/raw.githubusercontent.com/pherondk/dotfiles/master/.zshrc > $HOME/.zshrc-dotfiles
 
 # Get and install fzf-marks
 echo ''
