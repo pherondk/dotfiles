@@ -3,6 +3,7 @@
 # ##################################################################
 
 alias reload='source ~/.zshrc'
+alias authy='open /Applications/Authy\ Desktop.app'
 alias ll='ls -alhG'
 alias jj='mac'
 alias arping='sudo arping'
@@ -26,7 +27,6 @@ alias dcl='docker container ls'
 alias dcla='docker container ls -a'
 alias dcs='docker container start $1'
 alias dcst='docker container stop $1'
-alias 1pa='op get item $1'
 alias b='~/scripts/b.rb'
 
 # #####################################################################
@@ -59,9 +59,13 @@ alias lyrics='spotify lyrics'
 fuzzpass() { # fuzzy password searching
     local arg
 	arg=$1
-    # if [ "$arg" == "" ]; then
-    #     arg="password"
-    # fi
+	if [ -z $# eq 0 "$arg" ]; then
+			echo "password | secret key | totp"
+	fi
+	# if [ -z $arg ]; then
+	# 		echo "password | secret key | totp"
+	# 		exit 1
+	# fi
     local item
     item=$(1pass | fzf);
 	echo "$item"
