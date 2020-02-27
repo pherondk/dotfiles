@@ -112,7 +112,7 @@ tkillpane () { #kill tmux panes by number
 		then
 				for pane in $(echo $inst)
 				do
-						killpane=$(echo $pane | awk '{ print $1 }')
+						killpane=$(echo $pane | awk '{ print $1 }' | sed -e 's/\://g')
 						tmux kill-pane -t $killpane
 				done
 		fi
@@ -221,7 +221,7 @@ ex() { # compressed file expander
 # update multiple packages at once
 # mnemonic [B]rew [U]pdate [P]lugin
 
-bip () {
+bip () { # install brew packages
 local inst=$(brew search | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:install]'")
 
 if [[ $inst ]]; then
@@ -231,10 +231,7 @@ if [[ $inst ]]; then
 fi
 }
 
-bup () {
-		### BREW + FZF
-# uninstall multiple packages at once, async
-# mnemonic [B]rew [C]lean [P]lugin (e.g. uninstall)
+bup () { ### BREW + FZF # update multiple packages at once, async
 
 local upd=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:update]'")
 
@@ -245,9 +242,7 @@ if [[ $upd ]]; then
 fi
 }
 
-bcp () {
-		### BREW + FZF
-# mnemonic [B]rew [I]nstall [P]lugin
+bcp () {	### BREW + FZF # mnemonic [B]rew [U]ninstall [P]lugin
 
 local uninst=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:clean]'")
 
