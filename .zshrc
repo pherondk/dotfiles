@@ -16,7 +16,7 @@ if [[ $TERM != linux ]]; then
 print -Pn "\e]2;%~ :  $1\a"
 fi
 }
-
+export BROWSER='/usr/local/bin/w3m'
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:$PATH
 export DISABLE_AUTO_TITLE='true'
 
