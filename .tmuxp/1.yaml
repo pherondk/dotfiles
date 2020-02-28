@@ -1,0 +1,45 @@
+session_name: '0'
+windows:
+- focus: 'true'
+  layout: c6f8,238x69,0,0{122x69,0,0,1,115x69,123,0[115x34,123,0,2,115x34,123,35,3]}
+  options:
+    automatic-rename: 'off'
+    remain-on-exit: 'off'
+    synchronize-panes: 'off'
+  panes:
+  - zsh
+  - zsh
+  - focus: 'true'
+    shell_command: zsh
+  start_directory: /Users/heretic
+  window_name: Python
+- layout: e2e9,238x69,0,0{119x69,0,0,4,118x69,120,0[118x34,120,0,5,118x34,120,35,6]}
+  options:
+    automatic-rename: 'off'
+    synchronize-panes: 'on'
+  panes:
+  - focus: 'true'
+    shell_command: zsh
+  - zsh
+  - zsh
+  start_directory: /Users/heretic
+  window_name: zsh
+- layout: 6e20,238x69,0,0[238x46,0,0,7,238x22,0,47,8]
+  options:
+    automatic-rename: 'off'
+    synchronize-panes: 'on'
+  panes:
+  - zsh
+  - focus: 'true'
+    shell_command: zsh
+  start_directory: /Users/heretic
+  window_name: zsh
+- layout: c696,238x69,0,0[238x34,0,0,9,238x34,0,35,10]
+  options:
+    automatic-rename: 'off'
+  panes:
+  - zsh
+  - focus: 'true'
+    shell_command: zsh
+  start_directory: /Users/heretic
+  window_name: zsh
