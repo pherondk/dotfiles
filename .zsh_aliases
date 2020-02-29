@@ -3,6 +3,7 @@
 # ##################################################################
 
 alias reload='source ~/.zshrc'
+alias refresh='cd ~/dotfiles && git pull'
 alias tkp='tkillpane'
 alias authy='open /Applications/Authy\ Desktop.app'
 alias ll='ls -alhG'
