@@ -94,7 +94,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 docker
-fzf-tab
 docker-compose
 )
 
@@ -153,7 +152,7 @@ export FZF_TMUX=1
 # Source
 # ##################################################################
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-[ -f $HOME/git/fzf-tab/fzf-tab.plugin.zsh ] && source $HOME/git/fzf-tab/fzf-tab.plugin.zsh
+[ -f $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] && source $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh 
 [ -f $HOME/git/fzf-marks/fzf-marks.plugin.zsh ] && source $HOME/git/fzf-marks/fzf-marks.plugin.zsh
 [ -f $HOME/.zsh_aliases ] && source $HOME/.zsh_aliases
 [ -f /usr/local/share/zsh-syntax-highlightint/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
