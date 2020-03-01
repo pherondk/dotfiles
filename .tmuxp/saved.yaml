@@ -1,42 +1,29 @@
 session_name: '0'
 windows:
 - focus: 'true'
-  layout: de34,238x65,0,0{122x65,0,0,2,115x65,123,0[115x32,123,0,3,115x32,123,33,4]}
-  options:
-    automatic-rename: 'off'
-    remain-on-exit: 'off'
-    synchronize-panes: 'off'
-  panes:
-  - focus: 'true'
-    shell_command: zsh
-  - newsboat
-  - zsh
-  start_directory: /Users/heretic
-  window_name: Python
-- layout: fa25,238x65,0,0{119x65,0,0,5,118x65,120,0[118x32,120,0,6,118x32,120,33,7]}
-  options:
-    automatic-rename: 'off'
-  panes:
-  - focus: 'true'
-    shell_command: python3.7
-  - zsh
-  - Python
-  start_directory: /Users/heretic
-  window_name: zsh
-- layout: 9c1e,238x65,0,0[238x44,0,0,8,238x20,0,45,9]
-  options:
-    automatic-rename: 'off'
-  panes:
-  - zsh
-  - focus: 'true'
-    shell_command: zsh
-  start_directory: /Users/heretic
-  window_name: zsh
-- layout: 4eb9,238x65,0,0[238x32,0,0,10,238x32,0,33,11]
+  layout: 62d8,238x69,0,0{119x69,0,0,0,118x69,120,0[118x34,120,0,2,118x34,120,35,3]}
   options: {}
   panes:
-  - focus: 'true'
-    shell_command: zsh
   - zsh
+  - zsh
+  - focus: 'true'
+    shell_command: Python
+  start_directory: /Users/heretic
+  window_name: newsboat
+- layout: e2e9,238x69,0,0{119x69,0,0,4,118x69,120,0[118x34,120,0,5,118x34,120,35,6]}
+  options: {}
+  panes:
+  - zsh
+  - zsh
+  - focus: 'true'
+    shell_command: rtv
+  start_directory: /Users/heretic
+  window_name: zsh
+- layout: 0ca0,238x69,0,0[238x34,0,0,7,238x34,0,35,8]
+  options: {}
+  panes:
+  - zsh
+  - focus: 'true'
+    shell_command: misc
   start_directory: /Users/heretic
   window_name: zsh

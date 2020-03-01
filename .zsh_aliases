@@ -1,7 +1,8 @@
 # ##################################################################
 # Aliases
 # ##################################################################
-
+# fuzzy add using fzf
+#
 alias reload='source ~/.zshrc'
 alias refresh='cd ~/dotfiles && git pull'
 alias tkp='tkillpane'
