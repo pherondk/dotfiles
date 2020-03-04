@@ -4,6 +4,7 @@
 # fuzzy add using fzf
 #
 alias reload='source ~/.zshrc'
+alias seekkill="ps aux | fzf | awk '{ print $2 }' | xargs kill -9"
 alias refresh='cd ~/dotfiles && git pull'
 alias tkp='tkillpane'
 alias authy='open /Applications/Authy\ Desktop.app'
