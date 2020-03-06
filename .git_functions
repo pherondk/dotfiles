@@ -21,7 +21,7 @@ fshow() {
                 --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
 
-alias forgit='echo "
+alias forg='echo "
 ga
 Interactive git add selector
 
