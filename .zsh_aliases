@@ -66,6 +66,10 @@ alias lyrics='spotify lyrics'
 # source fuzzpass.sh
 #
 
+testcron() { # test crontab entries for errors
+ crontab -l | grep -v '^#' | cut -f 6- -d ' ' | while read CMD; do eval $CMD; done
+}
+
 seekkill () { # find and kill process by name with fzf
 		ps aux | fzf | awk '{print $2}' | xargs kill -9
 }
