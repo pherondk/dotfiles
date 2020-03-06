@@ -20,3 +20,28 @@ fshow() {
                 --bind "enter:execute:$_viewGitLogLine   | less -R" \
                 --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
+
+alias forgot='echo "
+ga
+Interactive git add selector
+
+glo
+Interactive git log viewer
+
+gi
+Interactive .gitignore generator
+
+gd
+Interactive git diff viewer
+
+grh
+Interactive git reset HEAD <file> selector
+
+gcf
+Interactive git checkout <file> selector
+
+gss
+Interactive git stash viewer
+
+gclean
+Interactive git clean selector"'
