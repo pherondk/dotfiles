@@ -155,6 +155,7 @@ export FZF_TMUX=1
 [ -f $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] && source $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh 
 [ -f $HOME/git/fzf-marks/fzf-marks.plugin.zsh ] && source $HOME/git/fzf-marks/fzf-marks.plugin.zsh
 [ -f $HOME/.zsh_aliases ] && source $HOME/.zsh_aliases
+[ -f $HOME/.git_functions ] && source $HOME/.git_functions
 [ -f $HOME/.mymacros.bash ] && source $HOME/.mymacros.bash
 [ -f /usr/local/share/zsh-syntax-highlightint/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # eval $(thefuck --alias)
