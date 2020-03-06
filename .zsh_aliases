@@ -66,7 +66,7 @@ alias lyrics='spotify lyrics'
 # source fuzzpass.sh
 #
 
-seekkill() { # find and kill process by name with fzf
+seekkill () { # find and kill process by name with fzf
 		ps aux | fzf | awk '{print $2}' | xargs kill -9
 }
 
