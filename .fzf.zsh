@@ -60,7 +60,7 @@ fgd() { # grep directory
   ls -la | fzf -m
 }
 
-fgdr() { # grep directory recursivly
+fgdr() { # grep directory recursively
   ls -lRa | fzf -m
 }
 
