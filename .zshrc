@@ -158,7 +158,6 @@ export FZF_TMUX=1
 [ -f $HOME/.git_functions ] && source $HOME/.git_functions
 [ -f $HOME/.mymacros.bash ] && source $HOME/.mymacros.bash
 [ -f /usr/local/share/zsh-syntax-highlightint/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# eval $(thefuck --alias)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
