@@ -27,9 +27,9 @@ echo ''
 echo "Creating directories for Neovim..."
 mkdir -p $HOME/.config/nvim/{autoload,bundle,colors,plugged}
 echo ''
-echo "Linking .vimrc to init.vim"
-ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
-source $HOME/.vimrc
+# echo "Linking .vimrc to init.vim"
+# ln -s $HOME/.config/nvim/init.vim $HOME/.vimrc
+# source $HOME/.vimrc
 
 # Installing git completion
 # echo ''
@@ -87,19 +87,15 @@ then
 		ln -v -s $HOME/dotfiles/.zsh_aliases
 fi
 
-
-# vimrc vundle install
-# echo ''
-# echo "Now installing vundle..."
-# echo ''
-# git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-
-# Nerdtree for vim install
-echo ''
-echo "Now installing Nerdtree for Vim..."
-echo ''
-git clone https://github.com/scrooloose/nerdtree.git ~/.config/nvim/bundle/nerdtree
+if [ -f "$HOME/.git_functions" ]
+then
+		echo "Backing up existing file"
+		today=$(date +"%m_%d_%Y")
+		cp -v $HOME/.git_functions "$HOME/.git_functions_$today" && rm -rf $HOME/.git_functions
+		echo ''
+		echo "Linking to dotfiles/.git_functions"
+		ln -v -s $HOME/dotfiles/.git_functions
+fi
 
 # # Vim color scheme install
 # echo ''
@@ -115,7 +111,7 @@ git clone https://github.com/scrooloose/nerdtree.git ~/.config/nvim/bundle/nerdt
 echo ''
 echo "Now installing utilities"
 echo ''
-brew install bat ccze fzf googler rtv ripgrep reattach-to-user-namespace
+brew install bat ccze fzf googler rtv ripgrep reattach-to-user-namespace wget
 
 # Apps to install
 #
