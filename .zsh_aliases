@@ -125,7 +125,7 @@ tkillpane () { #kill tmux panes by number
 				for pane in $(echo $inst)
 				do
 						killpane=$(echo $pane | awk '{ print $1 }' | sed -e 's/\://g')
-						tmux kill-pane -t $killpane
+						tmux kill-pane -t "$killpane" 2> /dev/null
 				done
 		fi
 }
