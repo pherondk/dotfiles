@@ -4,6 +4,7 @@
 # ##################################################################
 # fuzzy add using fzf
 #
+alias sk='seekkill'
 alias reload='source ~/.zshrc'
 alias totp='authenticator generate'
 alias refresh='cd ~/dotfiles && git pull'
