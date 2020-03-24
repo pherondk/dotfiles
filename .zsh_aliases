@@ -234,7 +234,7 @@ ex() { # compressed file expander
 # mnemonic [B]rew [U]pdate [P]lugin
 
 bip () { # install brew packages
-local inst=$(brew search | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:install]'")
+local inst=$(brew search | eval "fzf ${FZF_BREW_OPTS} -m --header='[brew:install]'")
 
 if [[ $inst ]]; then
   for prog in $(echo $inst)
@@ -243,19 +243,6 @@ if [[ $inst ]]; then
 fi
 }
 
-### BREW + FZF
-# update multiple packages at once
-# mnemonic [B]rew [U]pdate [P]lugin
-
-binfo () { # install brew packages
-local inst=$(brew search | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:info]'")
-
-if [[ $inst ]]; then
-  for prog in $(echo $inst)
-  do brew info $prog
-  done
-fi
-}
 bup () { ### BREW + FZF # update multiple packages at once, async
 
 local upd=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:update]'")
