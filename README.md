@@ -32,6 +32,11 @@ git clone https://github.com/pherondk/dotfiles
   addmac - create new macro
   vimac - edit existing macro
   delmac - delete specified macro
+  
+  trackpad_battery.sh
+  Queries OSX for Bluetooth details and displays the current battery level for a connected trackpad.
+  
+  Miscellaneous git functions and shit.
 ```
 
 ## Contributing
