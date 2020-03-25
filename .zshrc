@@ -17,7 +17,7 @@ print -Pn "\e]2;%~ :  $1\a"
 fi
 }
 export BROWSER='/usr/local/bin/w3m'
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:/Users/heretic/.cargo/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:/Users/heretic/.cargo/bin:/Users/heretic/.android-sdk-macosx/platform-tools/:$PATH
 export DISABLE_AUTO_TITLE='true'
 
 # panes
@@ -94,6 +94,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 docker
+fzf
 docker-compose
 )
 
@@ -153,7 +154,7 @@ export FZF_TMUX=1
 # Source
 # ##################################################################
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-[ ! -f $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] || source $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh 
+# [ ! -f $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] || source $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh 
 [ -f $HOME/git/fzf-marks/fzf-marks.plugin.zsh ] && source $HOME/git/fzf-marks/fzf-marks.plugin.zsh
 [ -f $HOME/.zsh_aliases ] && source $HOME/.zsh_aliases
 [ -f $HOME/.git_functions ] && source $HOME/.git_functions
