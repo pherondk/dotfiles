@@ -5,7 +5,7 @@
 # fuzzy add using fzf
 #
 alias sk='seekkill'
-alias reload='source ~/.zshrc'
+alias reload='source ~/.zshrc && echo "ZSH Config Reloaded from ~/.zshrc"'
 alias totp='authenticator generate'
 alias refresh='cd ~/dotfiles && git pull'
 alias tkp='tkillpane'
@@ -14,7 +14,7 @@ alias ll='ls -alhG'
 alias jj='mac'
 alias arping='sudo arping'
 alias gotosleep='pmset sleepnow'
-alias edit='vi ~/.zshrc && source ~/.zshrc'
+alias edit='vi ~/.zshrc && reload'
 alias softwareupdate='sudo softwareupdate'
 alias attach='tmuxp load saved'
 alias wireless='networksetup -setairportpower en1 '$1''
