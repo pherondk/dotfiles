@@ -1,4 +1,4 @@
-# heretic's Dotfiles
+# Dotfiles
 
 This is a collection of my personal dotfiles which are a mishmash of things I've found scattered across the web (mostly here
 on github).
@@ -21,7 +21,8 @@ git clone https://github.com/pherondk/dotfiles
   wrapper for killing off tmux panes interactively
 
   heretic-config.sh:
-  this is my work in progress script for building/rebuilding Linux/MacOS machines. Primarily geared to MacOS for now.
+  this is my work in progress script for building/rebuilding Linux/MacOS machines. 
+  Primarily geared to MacOS for now.
 
   b.rb:
   Browse Chromium based browser bookmarks in fzf and open in default browser
