@@ -5,6 +5,7 @@
 # fuzzy add using fzf
 #
 alias unifi_client='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest clients list'
+alias docui='docker run --rm -itv /var/run/docker.sock:/var/run/docker.sock skanehira/docui'
 alias sk='seekkill'
 alias reload='source ~/.zshrc && echo "ZSH Config Reloaded from ~/.zshrc"'
 alias totp='authenticator generate'
