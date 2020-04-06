@@ -161,11 +161,16 @@ function notify { #notify from terminal
 }
 
 function piadd() { #add A record to pihole config for logging
-		ymir -t "pihole -a -r $1 $2" }
+		ssh ymir -t "pihole -a -r $1 $2" }
 function pistatus() { #show pihole status
-		ymir -t "pihole status" }
+		ssh ymir -t "pihole status" }
 function piupdate() { # update pihole instance
-		ymir -t "pihole --up" }
+		ssh ymir -t "pihole --up" }
+
+rtvb() { #declare Edge as browser just for rtv and launch rtv
+		export BROWSER="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+		rtv --theme solarized-dark
+}
 
 tkillpane () { #kill tmux panes by number
 		local inst=$(tmux list-panes | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[tmux:kill-pane]'")
