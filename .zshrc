@@ -162,8 +162,6 @@ export FZF_TMUX=1
 [ -f $HOME/git/forgit/forgit.plugin.zsh ] && source $HOME/git/forgit/forgit.plugin.zsh
 [ -f $HOME/.mymacros.bash ] && source $HOME/.mymacros.bash
 [ -f /usr/local/share/zsh-syntax-highlightint/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-zle -N mac
-bindkey "^j" mac
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
