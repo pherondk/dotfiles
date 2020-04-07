@@ -5,6 +5,7 @@
 # fuzzy add using fzf
 #
 alias unifi_client='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest clients list'
+alias unifi_portlist='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest devices ports list 5e88cb330c47440015e5cb5d'
 alias docui='docker run --rm -itv /var/run/docker.sock:/var/run/docker.sock skanehira/docui'
 alias sk='seekkill'
 alias reload='source ~/.zshrc && echo "ZSH Config Reloaded from ~/.zshrc"'
@@ -18,7 +19,6 @@ alias arping='sudo arping'
 alias gotosleep='pmset sleepnow'
 alias edit='vi ~/.zshrc && reload'
 alias softwareupdate='sudo softwareupdate'
-alias attach='tmuxp load saved'
 alias wireless='networksetup -setairportpower en1 '$1''
 alias shr='netstat -nr'
 alias vi='nvim'
@@ -44,32 +44,11 @@ alias b='~/scripts/b.rb'
 
 alias status='git status'
 alias pull='git pull'
-# #####################################################################
-# Spotify Aliases
-# #####################################################################
-# alias play='spotify play'
-# alias spop='spotify open'
-# alias spinfo='spotify info'
-# alias mute='spotify mute'
-# alias back='spotify back'
-# alias next='spotify next'
-# alias unmute='spotify unmute'
-# alias lyrics='spotify lyrics'
-#
+alias push='git push'
+ 
 # ##################################################################
 # Functions
 # ##################################################################
-#!/usr/bin/env bash
-#
-# -*- shell-script -*-
-#
-# Use fzf (https://github.com/junegunn/fzf) to rapidly select an account,
-# and run 1pass (with optional argument) on the result.
-# To use this, source this file in your .bashrc or .profile as appropriate,
-# e.g.
-#
-# source fuzzpass.sh
-#
 
 testcron() { # test crontab entries for errors
  crontab -l | grep -v '^#' | cut -f 6- -d ' ' | while read CMD; do eval $CMD; done
