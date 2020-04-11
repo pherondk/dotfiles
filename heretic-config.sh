@@ -97,7 +97,27 @@ then
 		ln -v -s $HOME/dotfiles/.git_functions
 fi
 
-# # Vim color scheme install
+if [ -d "$HOME/.macrodirs" ]
+then
+		echo "Backing up existing directory."
+		today=$(date +"%m_%d_%Y")
+		cp -v $HOME/.macrosdir "$HOME/.macrosdir$today" && rm -rf $HOME/.macrosdir
+		echo ''
+		echo "Linking to dotfiles/.macrosdir"
+		ln -v -s $HOME/dotfiles/.macrosdir
+fi
+
+if [ -d "$HOME/.mymacros.bash" ]
+then
+		echo "Backing up existing directory."
+		today=$(date +"%m_%d_%Y")
+		cp -v $HOME/.mymacros.bash "$HOME/.mymacros.bash$today" && rm -rf $HOME/.mymacros.bash
+		echo ''
+		echo "Linking to dotfiles/.mymacros.bash"
+		ln -v -s $HOME/dotfiles/.mymacros.bash
+fi
+
+# Vim color scheme install
 # echo ''
 # echo "Now installing vim wombat color scheme..."
 # echo ''
