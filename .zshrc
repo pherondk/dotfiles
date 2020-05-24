@@ -16,7 +16,7 @@ if [[ $TERM != linux ]]; then
 print -Pn "\e]2;%~ :  $1\a"
 fi
 }
-export UNIFI_HOST="https://192.168.1.3:8443"
+export UNIFI_HOST="https://192.168.1.9:8443"
 export BROWSER='/usr/local/bin/w3m'
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:/Users/heretic/.cargo/bin:/Users/heretic/.android-sdk-macosx/platform-tools/:$PATH
 export DISABLE_AUTO_TITLE='true'

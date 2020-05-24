@@ -147,8 +147,8 @@ function pistatus() { #show pihole status
 function piupdate() { # update pihole instance
 		ssh ymir -t "pihole --up" }
 
-rtvb() { #declare Edge as browser just for rtv and launch rtv
-		export BROWSER="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+rtvb() { #declare Firefox as browser just for rtv and launch rtv
+		export BROWSER="/Applications/Firefox.app"
 		rtv --theme solarized-dark
 }
 
