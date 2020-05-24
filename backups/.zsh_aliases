@@ -1,0 +1,300 @@
+# ##################################################################
+#
+# Aliases
+# ##################################################################
+# fuzzy add using fzf
+#
+alias unicli='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest'
+alias unifi_client='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest clients list'
+alias unifi_portlist='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest devices ports list 5e88cb330c47440015e5cb5d'
+alias docui='docker run --rm -itv /var/run/docker.sock:/var/run/docker.sock skanehira/docui'
+alias sk='seekkill'
+alias reload='source ~/.zshrc && echo "ZSH Config Reloaded from ~/.zshrc"'
+alias totp='authenticator generate'
+alias refresh='cd ~/dotfiles && git pull'
+alias tkp='tkillpane'
+alias authy='open /Applications/Authy\ Desktop.app'
+alias ll='ls -alhG'
+alias jj='mac'
+alias arping='sudo arping'
+alias gotosleep='pmset sleepnow'
+alias edit='vi ~/.zshrc && reload'
+alias softwareupdate='sudo softwareupdate'
+alias wireless='networksetup -setairportpower en1 '$1''
+alias shr='netstat -nr'
+alias vi='nvim'
+alias extip='wget ipinfo.io/ip -qO -'
+alias psaux='ps aux | ccze -A -o nolookups'
+alias brewup='brew update && brew upgrade'
+alias pscpu='ps aux | sort -nr -k 3'
+alias pscpu10='ps aux | sort -nr -k 3 | head -10'
+alias psmem='ps aux | sort -nr -k 4'
+alias psmem10='ps aux | sort -nr -k 4 | head -10'
+alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
+alias dockip='docker container inspect --format "{{ .NetworkSettings.IPAddress }}" $1'
+alias dcl='docker container ls'
+alias dcla='docker container ls -a'
+alias dcs='docker container start $1'
+alias dcst='docker container stop $1'
+alias b='~/scripts/b.rb'
+
+
+# #####################################################################
+# git aliases
+# #####################################################################
+
+alias status='git status'
+alias pull='git pull'
+alias push='git push'
+ 
+# ##################################################################
+# Functions
+# ##################################################################
+
+testcron() { # test crontab entries for errors
+ crontab -l | grep -v '^#' | cut -f 6- -d ' ' | while read CMD; do eval $CMD; done
+}
+
+seekkill () { # find and kill process by name with fzf
+		ps aux | fzf | awk '{print $2}' | xargs kill -9
+}
+
+# Backup a file with the extension '.old'
+old() { cp --reflink=auto "${1}"{,.old} 2>/dev/null || cp "${1}"{,.old}; }
+# Functionalise 'command -v' to allow 'if get_command [command]' idiom
+get_command() { command -v "${1}" &>/dev/null; }
+alias exists='get_command'
+alias is_command='get_command'
+# A function to print a specific line from a file
+# TO-DO: Update it to handle globs e.g. 'printline 4 *'
+printline() {
+  # If $1 is empty, print a usage message
+  if [[ -z "${1}" ]]; then
+    printf '%s\n' "Usage:  printline n [file]" ""
+    printf '\t%s\n' "Print the Nth line of FILE." "" \
+      "With no FILE or when FILE is -, read standard input instead."
+    return 0
+  fi
+
+  # Check that $1 is a number, if it isn't print an error message
+  # If it is, blindly convert it to base10 to remove any leading zeroes
+  case $1 in
+    (''|*[!0-9]*) printf '%s\n' "[ERROR] printline: '${1}' does not appear to be a number." "" \
+                    "Run 'printline' with no arguments for usage.";
+                  return 1 ;;
+    (*)           local lineNo="$((10#$1))" ;;
+  esac
+
+  # Next, if $2 is set, check that we can actually read it
+  if [[ -n "${2}" ]]; then
+    if [[ ! -r "${2}" ]]; then
+      printf '%s\n' "[ERROR] printline: '$2' does not appear to exist or I can't read it." "" \
+        "Run 'printline' with no arguments for usage."
+      return 1
+    else
+      local file="${2}"
+    fi
+  fi
+
+  # Finally after all that testing is done, we throw in a cursory test for 'sed'
+  if is_command sed; then
+    sed -ne "${lineNo}{p;q;}" -e "\$s/.*/[ERROR] printline: End of stream reached./" -e '$ w /dev/stderr' "${file:-/dev/stdin}"
+  # Otherwise we print a message that 'sed' isn't available
+  else
+    printf '%s\n' "[ERROR] printline: This function depends on 'sed' which was not found."
+    return 1
+  fi
+}
+
+fuzzpass() { # fuzzy password searching
+    local arg
+	arg=$1
+	if [ -z $# eq 0 "$arg" ]; then
+			echo "password | secret key | totp"
+	fi
+	# if [ -z $arg ]; then
+	# 		echo "password | secret key | totp"
+	# 		exit 1
+	# fi
+    local item
+    item=$(1pass | fzf);
+	echo "$item"
+    1pass -p "$item" "$arg"
+}
+
+tm () { # switch between tmux sessions or create new if not
+		# usage: tm <name/number>
+		#
+	[[ -n "$TMUX" ]] && change="switch-client"  || change="attach-session" 
+	if [ $1 ]
+	then
+		tmux $change -t "$1" 2> /dev/null || (
+			tmux new-session -d -s $1 && tmux $change -t "$1"
+		)
+		return
+	fi
+	session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0)  && tmux $change -t "$session" || echo "No sessions found."
+}
+
+function notify { #notify from terminal
+		terminal-notifier -title "$1" -message "$2" 
+}
+
+function piadd() { #add A record to pihole config for logging
+		ssh ymir -t "pihole -a -r $1 $2" }
+function pistatus() { #show pihole status
+		ssh ymir -t "pihole status" }
+function piupdate() { # update pihole instance
+		ssh ymir -t "pihole --up" }
+
+rtvb() { #declare Edge as browser just for rtv and launch rtv
+		export BROWSER="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
+		rtv --theme solarized-dark
+}
+
+tkillpane () { #kill tmux panes by number
+		local inst=$(tmux list-panes | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[tmux:kill-pane]'")
+		if [[ -n $inst ]]
+		then
+				for pane in $(echo $inst)
+				do
+						killpane=$(echo $pane | awk '{ print $1 }' | sed -e 's/\://g')
+						tmux kill-pane -t "$killpane" 2> /dev/null
+				done
+		fi
+}
+function _calcram() { #used for ram and rams
+    local sum
+    sum=0
+    for i in `ps aux | grep -i "$1" | grep -v "grep" | awk '{print $6}'`; do
+        sum=$(($i + $sum))
+    done
+    sum=$(echo "scale=2; $sum / 1024.0" | bc)
+    echo $sum
+}
+
+function ram() { #shows ram usages by specified process
+    local sum
+    local app="$1"
+    if [ -z "$app" ]; then
+        echo "First argument - pattern to grep from processes"
+        return 0
+    fi
+    sum=$(_calcram $app)
+    if [[ $sum != "0" ]]; then
+        echo "${fg[blue]}${app}${reset_color} uses ${fg[green]}${sum}${reset_color} MBs of RAM"
+    else
+        echo "No active processes matching pattern '${fg[blue]}${app}${reset_color}'"
+    fi
+}
+
+function rams() { # ongoing ram usage
+    local sum
+    local app="$1"
+    if [ -z "$app" ]; then
+        echo "First argument - pattern to grep from processes"
+        return 0
+    fi
+
+    while true; do
+        sum=$(_calcram $app)
+        if [[ $sum != "0" ]]; then
+                echo -en "${fg[blue]}${app}${reset_color} uses ${fg[green]}${sum}${reset_color} MBs of RAM\r"
+        else
+                echo -en "No active processes matching pattern '${fg[blue]}${appt}${reset_color}'\r"
+        fi
+        sleep 1
+  done
+}
+
+fzf_alias() { # for existing aliases
+  alias | tr = "\t" | fzf | cut -f 1
+} 
+
+
+e () { # browse edge history
+        local cols sep
+        cols=$(( COLUMNS / 3 ))
+        sep='{::}'
+        cp -f ~/Library/Application\ Support/Microsoft\ Edge/Default/History /tmp/h
+        sqlite3 -separator $sep /tmp/h "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" | awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' | fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
+
+c() { #browse chrome history
+  local cols sep
+  cols=$(( COLUMNS / 3 ))
+  sep='{::}'
+
+  cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
+
+# -------------------------------------------------------------------
+# compressed file expander
+# (from https://github.com/myfreeweb/zshuery/blob/master/zshuery.sh)
+# -------------------------------------------------------------------
+ex() { # compressed file expander
+    if [[ -f $1 ]]; then
+        case $1 in
+          *.tar.bz2) tar xvjf $1;;
+          *.tar.gz) tar xvzf $1;;
+          *.tar.xz) tar xvJf $1;;
+          *.tar.lzma) tar --lzma xvf $1;;
+          *.bz2) bunzip $1;;
+          *.rar) unrar $1;;
+          *.gz) gunzip $1;;
+          *.tar) tar xvf $1;;
+          *.tbz2) tar xvjf $1;;
+          *.tgz) tar xvzf $1;;
+          *.zip) unzip $1;;
+          *.Z) uncompress $1;;
+          *.7z) 7z x $1;;
+          *.dmg) hdiutil mount $1;; # mount OS X disk images
+          *) echo "'$1' cannot be extracted via >ex<";;
+    esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+### BREW + FZF
+# update multiple packages at once
+# mnemonic [B]rew [U]pdate [P]lugin
+
+bip () { # install brew packages
+local inst=$(brew search | eval "fzf ${FZF_BREW_OPTS} -m --header='[brew:install]'")
+
+if [[ $inst ]]; then
+  for prog in $(echo $inst)
+  do brew install $prog
+  done
+fi
+}
+
+bup () { ### BREW + FZF # update multiple packages at once, async
+
+local upd=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:update]'")
+
+if [[ $upd ]]; then
+  for prog in $(echo $upd)
+  do brew upgrade $prog
+  done
+fi
+}
+
+bcp () {	### BREW + FZF # mnemonic [B]rew [U]ninstall [P]lugin
+
+local uninst=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:clean]'")
+
+if [[ $uninst ]]; then
+  for prog in $(echo $uninst)
+  do brew uninstall $prog
+  done
+fi
+}
