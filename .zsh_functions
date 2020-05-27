@@ -5,18 +5,24 @@
 # Functions
 # ##################################################################
 
+dkclean() {
+		  sudo docker rm $(docker ps --all -q -f status=exited)
+		    sudo docker volume rm $(docker volume ls -qf dangling=true)
+			
+}
+
 dkln() {
-  docker logs -f `docker ps | grep $1 | awk '{print $1}'`
+  sudo docker logs -f `docker ps | grep $1 | awk '{print $1}'`
 }
 
 dktop() {
-  docker stats --format "table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}  {{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}"
+  sudo docker stats --format "table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}  {{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}"
 }
 
 dkstats() {
   if [ $# -eq 0 ]
-    then docker stats --no-stream;
-    else docker stats --no-stream | grep $1;
+    then sudo docker stats --no-stream;
+    else sudo docker stats --no-stream | grep $1;
   fi
 }
 
@@ -28,15 +34,13 @@ seekkill () { # find and kill process by name with fzf
 		ps aux | fzf | awk '{print $2}' | xargs kill -9
 }
 
-# Backup a file with the extension '.old'
-old() { cp --reflink=auto "${1}"{,.old} 2>/dev/null || cp "${1}"{,.old}; }
-# Functionalise 'command -v' to allow 'if get_command [command]' idiom
-get_command() { command -v "${1}" &>/dev/null; }
-alias exists='get_command'
-alias is_command='get_command'
-# A function to print a specific line from a file
-# TO-DO: Update it to handle globs e.g. 'printline 4 *'
-printline() {
+old() { # Backup a file with the extension '.old'
+	   	cp --reflink=auto "${1}"{,.old} 2>/dev/null || cp "${1}"{,.old}; 
+}
+get_command() {  # Functionalise 'command -v' to allow 'if get_command [command]' idiom
+		command -v "${1}" &>/dev/null; 
+}
+printline() { # A function to print a specific line from a file
   # If $1 is empty, print a usage message
   if [[ -z "${1}" ]]; then
     printf '%s\n' "Usage:  printline n [file]" ""
