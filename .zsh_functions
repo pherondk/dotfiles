@@ -5,6 +5,15 @@
 # Functions
 # ##################################################################
 
+dkln() {
+  docker logs -f `docker ps | grep $1 | awk '{print $1}'`
+}
+
+dktop() {
+  docker stats --format "table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}  {{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}"
+}
+
+
 testcron() { # test crontab entries for errors
  crontab -l | grep -v '^#' | cut -f 6- -d ' ' | while read CMD; do eval $CMD; done
 }
