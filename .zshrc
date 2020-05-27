@@ -158,6 +158,7 @@ export FZF_TMUX=1
 # [ ! -f $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] || source $HOME/git/fzf-tab-completion/zsh/fzf-zsh-completion.sh 
 [ -f $HOME/git/fzf-marks/fzf-marks.plugin.zsh ] && source $HOME/git/fzf-marks/fzf-marks.plugin.zsh
 [ -f $HOME/.zsh_aliases ] && source $HOME/.zsh_aliases
+[ -f $HOME/.zsh_functions ] && source $HOME/.zsh_functions
 [ -f $HOME/.git_functions ] && source $HOME/.git_functions
 [ -f $HOME/git/forgit/forgit.plugin.zsh ] && source $HOME/git/forgit/forgit.plugin.zsh
 [ -f $HOME/.mymacros.bash ] && source $HOME/.mymacros.bash
