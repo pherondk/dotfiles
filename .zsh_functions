@@ -5,6 +5,7 @@
 # Functions
 # ##################################################################
 
+<<<<<<< Updated upstream
 dkln() {
   docker logs -f `docker ps | grep $1 | awk '{print $1}'`
 }
@@ -13,6 +14,19 @@ dktop() {
   docker stats --format "table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}  {{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}"
 }
 
+=======
+dkln () {
+        sudo docker logs -f `sudo docker ps | grep $1 | awk '{print $1}'`
+}
+
+dktop () {
+        sudo docker stats --format "table {{.Container}}\t{{.Name}}\t{{.CPUPerc}}  {{.MemPerc}}\t{{.NetIO}}\t{{.BlockIO}}"
+}
+
+dkln () {
+        sudo docker logs -f `sudo docker ps | grep $1 | awk '{print $1}'`
+}
+>>>>>>> Stashed changes
 
 testcron() { # test crontab entries for errors
  crontab -l | grep -v '^#' | cut -f 6- -d ' ' | while read CMD; do eval $CMD; done
