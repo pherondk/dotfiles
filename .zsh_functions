@@ -113,13 +113,6 @@ function notify { #notify from terminal
 		terminal-notifier -title "$1" -message "$2" 
 }
 
-function piadd() { #add A record to pihole config for logging
-		ssh ymir -t "pihole -a -r $1 $2" }
-function pistatus() { #show pihole status
-		ssh ymir -t "pihole status" }
-function piupdate() { # update pihole instance
-		ssh ymir -t "pihole --up" }
-
 rtvb() { #declare Firefox as browser just for rtv and launch rtv
 		export BROWSER="/Applications/Firefox.app"
 		rtv --theme solarized-dark
