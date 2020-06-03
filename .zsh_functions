@@ -304,3 +304,77 @@ uninstall-cask() {
         fi
     fi
 }
+
+# yadm functions
+
+yadm::inside_work_tree () {
+        yadm rev-parse --is-inside-work-tree > /dev/null
+}
+
+yadm::log () {
+	yadm::inside_work_tree || return 1
+	local cmd opts
+	cmd="echo {} |grep -Eo '[a-f0-9]+' |head -1 |xargs -I% yadm show --color=always % $* | $forgit_pager" 
+	opts="
+         $FORGIT_FZF_DEFAULT_OPTS
+         +s +m --tiebreak=index --preview=\"$cmd\"
+         --bind=\"enter:execute($cmd | LESS='-R' less)\"
+         --bind=\"ctrl-y:execute-silent(echo {} |grep -Eo '[a-f0-9]+' | head -1 | tr -d '\n' |${FORGIT_COPY_CMD:-       pbcopy})\"
+         $FORGIT_LOG_FZF_OPTS
+     " 
+	eval "yadm log --graph --color=always --format='%C(auto)%h%d %s %C(black)%C(bold)%cr' $* $forgit_emojify" | FZF_DEFAULT_OPTS="$opts" fzf
+}
+
+yadm::add () {
+	yadm::inside_work_tree || return 1
+	[[ $# -ne 0 ]] && yadm add "$@" && return
+	local changed unmerged untracked files opts preview extract
+	changed=$(yadm config --get-color color.status.changed red) 
+	unmerged=$(yadm config --get-color color.status.unmerged red) 
+	untracked=$(yadm config --get-color color.status.untracked red) 
+	extract="
+         sed 's/^.*]  //' |
+         sed 's/.* -> //' |
+         sed -e 's/^\\\"//' -e 's/\\\"\$//'" 
+	preview="
+         file=\$(echo {} | $extract)
+         if (yadm status -s -- \$file | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
+             yadm diff --color=always --no-index -- /dev/null \$file | $forgit_pager | sed '2 s/added:/untracked:/'
+         else
+             yadm diff --color=always -- \$file | $forgit_pager
+         fi" 
+	opts="
+         $FORGIT_FZF_DEFAULT_OPTS
+         -0 -m --nth 2..,..
+         --preview=\"$preview\"
+         $FORGIT_ADD_FZF_OPTS
+     " 
+	files=$(yadm -c color.status=always -c status.relativePaths=true status -su |
+         grep -F -e "$changed" -e "$unmerged" -e "$untracked" |
+         sed -E 's/^(..[^[:space:]]*)[[:space:]]+(.*)$/[\1]  \2/' |
+         FZF_DEFAULT_OPTS="$opts" fzf |
+         sh -c "$extract") 
+	[[ -n "$files" ]] && echo "$files" | tr '\n' '\0' | xargs -0 -I% yadm add % && yadm status -su && return
+	echo 'Nothing to add.'
+}
+yadm::diff () {
+	yadm::inside_work_tree || return 1
+	local cmd files opts commit repo
+	[[ $# -ne 0 ]] && {
+		if yadm rev-parse "$1" -- &> /dev/null
+		then
+			commit="$1"  && files=("${@:2}") 
+		else
+			files=("$@") 
+		fi
+	}
+	repo="$(yadm rev-parse --show-toplevel)" 
+	target="\$(echo {} | sed 's/.*]  //')" 
+	cmd="yadm diff --color=always $commit -- $repo/$target | $forgit_pager" 
+	opts="
+        $FORGIT_FZF_DEFAULT_OPTS
+        +m -0 --preview=\"$cmd\" --bind=\"enter:execute($cmd |LESS='-R' less)\"
+        $FORGIT_DIFF_FZF_OPTS
+    " 
+	eval "yadm diff --name-status $commit -- ${files[*]} | sed -E 's/^(.)[[:space:]]+(.*)$/[\1]  \2/'" | FZF_DEFAULT_OPTS="$opts" fzf
+}

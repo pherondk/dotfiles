@@ -53,3 +53,5 @@ alias push='git push'
 # #####################################################################
 
 alias yl='yadm::log'
+alias ya='yadm::add'
+alias yd='yadm::diff'

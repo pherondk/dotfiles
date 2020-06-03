@@ -88,3 +88,5 @@ git
 node_modules
 powershell
 scripts
+.config
+.vim_runtime
