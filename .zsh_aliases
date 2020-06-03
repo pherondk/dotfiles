@@ -46,3 +46,10 @@ alias b='~/scripts/b.rb'
 alias status='git status'
 alias pull='git pull'
 alias push='git push'
+
+
+# #####################################################################
+# yadm aliases
+# #####################################################################
+
+alias yl='yadm::log'
