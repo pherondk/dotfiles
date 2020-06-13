@@ -1,7 +1,0 @@
-# tail the pihole logs
-#
-
-echo
-clear
-ssh -i ~/.ssh/id_rsa.ymir heretic@ymir -t "sudo pihole -t"
-
