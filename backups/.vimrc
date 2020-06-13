@@ -17,9 +17,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
-Plug 'whatyouhide/vim-gotham'
 Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
