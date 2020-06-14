@@ -17,7 +17,9 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
+Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
+Plug 'whatyouhide/vim-gotham'
 Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
@@ -32,13 +34,24 @@ inoremap <C-t>		<Esc>:tabnew<CR>i
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
+let &t_SI .= "\<Esc>[?2004h"
+ let &t_EI .= "\<Esc>[?2004l"
 
-map <C-o> :NERDTreeToggle<CR>
+ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+ function! XTermPasteBegin()
+       set pastetoggle=<Esc>[201~
+         set paste
+           return ""
+       endfunction]]
+ "]"
+ "]"
+
 set number
 filetype indent on
 set showmatch
 set tabstop=4
-colorscheme gotham256
+colorscheme peaksea
 " colorscheme badwolf
 let g:airline_powerline_fonts = 1
 let g:airline_theme='gotham256'
