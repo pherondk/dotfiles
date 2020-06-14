@@ -19,7 +19,13 @@ fi
 export UNIFI_HOST="https://192.168.1.9:8443"
 # export BROWSER='/usr/local/bin/w3m'
 export BROWSER='/Applications/Firefox.app'
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:/Users/heretic/.cargo/bin:/Users/heretic/.android-sdk-macosx/platform-tools/:$PATH
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/home/heretic/Library/Python/3.7/bin:/home/heretic/.cargo/bin:/home/heretic/.android-sdk-macosx/platform-tools/:$PATH
+elif [[ "$OSTYPE" == "darwin"* ]]; then 
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:/Users/heretic/.cargo/bin:/home/heretic/.android-sdk-macosx/platform-tools/:$PATH
+fi
+
 export DISABLE_AUTO_TITLE='true'
 
 # panes
@@ -96,7 +102,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 docker
-fzf
 docker-compose
 )
 
@@ -171,3 +176,5 @@ eval "$(zoxide init zsh)"
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
