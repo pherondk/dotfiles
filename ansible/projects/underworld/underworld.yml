@@ -1,0 +1,5 @@
+- hosts: swarm-1, swarm-2, swarm-3, swarm-4
+  tasks:
+    - include: roles/tasks/main.yml
+    # - include: roles/vars/main.yml
+    - include: roles/tasks/git.yml 

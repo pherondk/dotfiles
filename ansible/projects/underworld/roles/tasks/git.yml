@@ -1,0 +1,39 @@
+---
+    - name: Check if .zshrc exists
+      stat:
+        path: /home/heretic/.zshrc
+      register: stat_rc_result
+    # - name: Check if .oh-my-zsh exists
+    #   stat:
+    #     path: /home/heretic/.oh-my-zsh
+    #   register: stat_oh_my_zsh_result
+    - name: Check if fzf exists
+      stat:
+        path: /home/heretic/.fzf
+      register: stat_fzf_result
+    - name: Check if powerlevel10k exists
+      stat:
+        path: /home/heretic/.oh-my-zsh/custom/themes/powerlevel10k
+      register: stat_powerlevel_result
+    - name: Check if awesome .vimrc exists
+      stat:
+        path: /home/heretic/.vim_runtime
+      register: stat_vim_runtime_result
+    - name: Cloning fzf
+      git:
+        repo: https://github.com/junegunn/fzf
+        dest: /home/heretic/.fzf
+        version: master
+      when: not stat_fzf_result.stat.exists
+    - name: Cloning awesome .vimrc
+      git:
+        repo: https://github.com/amix/vimrc.git
+        dest: /home/heretic/.vim_runtime
+        version: master
+      when: not stat_vim_runtime_result.stat.exists
+    - name: Cloning powerlevel10k
+      git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: /home/heretic/.oh-my-zsh/custom/themes/powerlevel10k
+        version: master
+      when: not stat_powerlevel_result.stat.exists
