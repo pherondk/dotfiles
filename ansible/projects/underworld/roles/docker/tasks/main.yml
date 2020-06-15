@@ -1,21 +1,19 @@
-- hosts: all
-  become: yes
-  gather_facts: false
-  tasks:
+---  
   - name: Install docker packages
+    become: yes
     remote_user: heretic
-    apt:
-      name: "{{ item }}"
+    package:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
       state: present
       update_cache: yes
-    with_items:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
     tags:
       - docker
   - name: Add Docker s official GPG key
+    become: yes
     remote_user: heretic
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
@@ -30,6 +28,7 @@
     tags:
       - docker
   - name: Set up the stable repository
+    become: yes
     remote_user: heretic
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
@@ -38,12 +37,14 @@
     tags:
       - docker
   - name: Update apt packages
+    become: yes
     remote_user: heretic
     apt:
       update_cache: yes
     tags:
       - docker
   - name: Install docker
+    become: yes
     remote_user: heretic
     apt:
       name: docker-ce
@@ -53,16 +54,18 @@
     tags:
       - docker
   - name: Add remote "heretic" user to "docker" group
+    become: yes
     remote_user: heretic
     user:
-      name: "ubuntu"
+      name: "heretic"
       group: "docker"
       append: yes
     tags:
       - docker
   - name: Install docker-compose
+    become: yes
     remote_user: heretic
     get_url: 
-      url : https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+      url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
       dest: /usr/local/bin/docker-compose
       mode: 'u+x,g+x'

@@ -1,0 +1,10 @@
+bifrost
+erebus
+yggdrasil
+anubis
+mon-1
+swarm-1
+swarm-2
+swarm-3
+swarm-4
+fury-2

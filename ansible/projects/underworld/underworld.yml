@@ -1,11 +1,10 @@
 - hosts: all
-# - hosts: swarm-1, swarm-2, swarm-3, swarm-4
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:
-    - include: roles/common/tasks/main.yml
     - include: roles/common/tasks/oh-my-zsh.yml 
     - include: roles/common/tasks/git.yml 
     - include: roles/common/tasks/yadm.yml
     - include: roles/common/tasks/zoxide.yml 
     - include: roles/docker/tasks/main.yml
+    - include: roles/common/tasks/main.yml
