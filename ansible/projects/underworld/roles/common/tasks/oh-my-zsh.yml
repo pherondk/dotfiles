@@ -35,11 +35,11 @@
     name: 'heretic'
     shell: /bin/zsh
 
-- name: write .zshrc for users
-  become: yes
-  become_user: 'heretic'
-  template:
-    src: zshrc.bmf
-    dest: '~/.zshrc'
-    backup: yes
-    mode: 'u=rw,go=r'
+# - name: write .zshrc for users
+#   become: yes
+#   become_user: 'heretic'
+#   template:
+#     src: zshrc.bmf
+#     dest: '~/.zshrc'
+#     backup: yes
+#     mode: 'u=rw,go=r'

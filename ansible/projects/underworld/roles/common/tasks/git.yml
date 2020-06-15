@@ -1,28 +1,18 @@
 ---
-    # - name: Check if .zshrc exists
-    #   stat:
-    #     path: /home/heretic/.zshrc
-    #   register: stat_rc_result
-    # - name: Check if .oh-my-zsh exists
-    #   stat:
-    #     path: /home/heretic/.oh-my-zsh
-    #   register: stat_oh_my_zsh_result
     - name: Check if fzf exists
       stat:
         path: /home/heretic/.fzf
       register: stat_fzf_results
-    # - debug:
-    #     msg: "File exists"
-    #   when: stat_fzf_results.stat.exists
-    # - debug:
-    #     msg: "File does not exist"
-    #   when: stat_fzf_results.stat.exists == False
 
     - name: Cloning fzf
       git:
         repo: https://github.com/junegunn/fzf
         dest: /home/heretic/.fzf
         version: master
+      when: stat_fzf_results.stat.exists == False
+    
+    - name: Install fzf for all
+      command: "~/.fzf/install --all"
       when: stat_fzf_results.stat.exists == False
 
     - name: Check if powerlevel10k exists
