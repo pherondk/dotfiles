@@ -1,0 +1,18 @@
+---
+  # - name: Recursively remove .yadm directory
+  #   file:
+  #     path: /home/heretic/.yadm/repo.git
+  #     state: absent
+  - name: Check if .yadm/repo.git exists
+    stat:
+      path: ~/.yadm/repo.git
+    register: yadm
+  # - debug:
+  #     msg: "File exists"
+  #   when: yadm.stat.exists
+  # - debug:
+  #     msg: "File does not exist"
+  #   when: yadm.stat.exists == False
+  - name: clone dotfiles with yadm
+    command: 'yadm clone https://github.com/pherondk/dotfiles.git'
+    when: yadm.stat.exists == False

@@ -5,6 +5,8 @@
     name:
       - git
       - zsh
+      - cargo
+      - yadm
     state: present
 
 - name: clone oh-my-zsh for users
@@ -19,31 +21,19 @@
   args:
     chdir: '/home/heretic'
     creates: '/home/heretic/.oh-my-zsh'
-  # with_items: "{{ users | map(attribute='username') | list }}"
-  # loop_control:
-  #   loop_var: username
 
 - name: set permissions of oh-my-zsh for users
   become: yes
   file:
     path: '/home/heretic/.oh-my-zsh'
-    # Prevent the cloned repository from having insecure permissions. Failing to do
-    # so causes compinit() calls to fail with "command not found: compdef" errors
-    # for users with insecure umasks (e.g., "002", allowing group writability).
     mode: 'go-w'
     recurse: yes
-  # with_items: "{{ users | map(attribute='username') | list }}"
-  # loop_control:
-  #   loop_var: username
 
 - name: set default shell for users
   become: yes
   user:
     name: 'heretic'
     shell: /bin/zsh
-  # with_items: "{{ users | map(attribute='username') | list }}"
-  # loop_control:
-    # loop_var: username
 
 - name: write .zshrc for users
   become: yes
@@ -53,7 +43,3 @@
     dest: '~/.zshrc'
     backup: yes
     mode: 'u=rw,go=r'
-  # with_items: '{{ users }}'
-  # loop_control:
-  #   loop_var: user
-  #   label: '{{ user.username }}'

@@ -1,8 +1,8 @@
 ---
-    - name: Check if .zshrc exists
-      stat:
-        path: /home/heretic/.zshrc
-      register: stat_rc_result
+    # - name: Check if .zshrc exists
+    #   stat:
+    #     path: /home/heretic/.zshrc
+    #   register: stat_rc_result
     # - name: Check if .oh-my-zsh exists
     #   stat:
     #     path: /home/heretic/.oh-my-zsh
@@ -10,30 +10,49 @@
     - name: Check if fzf exists
       stat:
         path: /home/heretic/.fzf
-      register: stat_fzf_result
-    - name: Check if powerlevel10k exists
-      stat:
-        path: /home/heretic/.oh-my-zsh/custom/themes/powerlevel10k
-      register: stat_powerlevel_result
-    - name: Check if awesome .vimrc exists
-      stat:
-        path: /home/heretic/.vim_runtime
-      register: stat_vim_runtime_result
+      register: stat_fzf_results
+    # - debug:
+    #     msg: "File exists"
+    #   when: stat_fzf_results.stat.exists
+    # - debug:
+    #     msg: "File does not exist"
+    #   when: stat_fzf_results.stat.exists == False
     - name: Cloning fzf
       git:
         repo: https://github.com/junegunn/fzf
         dest: /home/heretic/.fzf
         version: master
-      when: not stat_fzf_result.stat.exists
-    - name: Cloning awesome .vimrc
-      git:
-        repo: https://github.com/amix/vimrc.git
-        dest: /home/heretic/.vim_runtime
-        version: master
-      when: not stat_vim_runtime_result.stat.exists
+      when: stat_fzf_results.stat.exists == False
+    - name: Check if powerlevel10k exists
+      stat:
+        path: /home/heretic/.oh-my-zsh/custom/themes/powerlevel10k
+      register: stat_powerlevel_result
     - name: Cloning powerlevel10k
       git:
         repo: https://github.com/romkatv/powerlevel10k.git
         dest: /home/heretic/.oh-my-zsh/custom/themes/powerlevel10k
         version: master
       when: not stat_powerlevel_result.stat.exists
+    - name: Check if awesome .vimrc exists
+      stat:
+        path: /home/heretic/.vim_runtime
+      register: stat_vim_runtime_result
+    - name: Cloning awesome .vimrc
+      git:
+        repo: https://github.com/amix/vimrc.git
+        dest: /home/heretic/.vim_runtime
+        version: master
+      when: not stat_vim_runtime_result.stat.exists
+    - name: Create dir
+      become: yes
+      file: 
+        path: /usr/local/opt/fzf/shell
+        state: directory
+    - name:
+      stat:
+        path: /usr/local/opt/fzf/shell/key-bindings.zsh
+      register: fzf_key
+    - name: Copy fzf key-bindings.zsh
+      become: yes
+      command: cp /home/heretic/.fzf/shell/key-bindings.zsh /usr/local/opt/fzf/shell
+      when: fzf_key.stat.exists == False
