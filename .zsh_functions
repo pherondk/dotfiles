@@ -5,6 +5,9 @@
 # Functions
 # ##################################################################
 
+# ##################################################################
+# Docker Functions
+# ##################################################################
 dkclean() {
 		  sudo docker rm $(docker ps --all -q -f status=exited)
 		    sudo docker volume rm $(docker volume ls -qf dangling=true)
@@ -24,6 +27,31 @@ dkstats() {
     then sudo docker stats --no-stream;
     else sudo docker stats --no-stream | grep $1;
   fi
+}
+
+# ##################################################################
+# Container updates
+# ##################################################################
+
+plex-update() { # bring down plex container and pull new image
+cd /opt/docker
+docker-compose down;
+docker-compose pull;
+docker-compose up -d
+}
+
+unifi-update() { # bring down unifi container and pull new image
+cd /opt/docker/unifi
+docker-compose down;
+docker-compose pull;
+docker-compose up -d
+}
+
+media-update() { # bring down media-stack container and pull new image
+cd /opt/docker/
+docker-compose down;
+docker-compose pull;
+docker-compose up -d
 }
 
 testcron() { # test crontab entries for errors
