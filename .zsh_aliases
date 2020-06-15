@@ -2,7 +2,6 @@
 #
 # Aliases
 # ##################################################################
-# fuzzy add using fzf
 #
 alias unicli='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest'
 alias unifi_client='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest clients list'
@@ -55,3 +54,9 @@ alias push='git push'
 alias yl='yadm::log'
 alias ya='yadm::add'
 alias yd='yadm::diff'
+
+# #####################################################################
+# ansible aliases
+# #####################################################################
+
+alias madechanges="ansible all -m shell -a 'yadm pull'"
