@@ -63,10 +63,3 @@ fgd() { # grep directory
 fgdr() { # grep directory recursively
   ls -lRa | fzf -m
 }
-
-
-# Bookmarks script
-. ~/git/fzf-marks/fzf-marks.plugin.zsh
-. ~/.mymacros.bash
-
-
