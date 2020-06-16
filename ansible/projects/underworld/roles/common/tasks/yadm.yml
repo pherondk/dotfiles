@@ -1,8 +1,4 @@
 ---
-  # - name: Recursively remove .yadm directory
-  #   file:
-  #     path: /home/heretic/.yadm/repo.git
-  #     state: absent
   - name: Check if .yadm/repo.git exists
     stat:
       path: ~/.yadm/repo.git
