@@ -3,6 +3,7 @@
     ansible_python_interpreter: /usr/bin/python3
   tasks:
     - include: roles/common/tasks/oh-my-zsh.yml 
+    - include: roles/common/tasks/fzf.yml
     - include: roles/common/tasks/git.yml 
     - include: roles/common/tasks/yadm.yml
     - include: roles/common/tasks/zoxide.yml 

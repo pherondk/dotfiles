@@ -8,6 +8,7 @@ swarm-3
 swarm-4
 mon-1
 fury-2
+anubis
 
 [docker]
 bifrost
