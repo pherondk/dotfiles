@@ -166,6 +166,7 @@ export FZF_TMUX=1
 [ -f $HOME/.zsh_functions ] && source $HOME/.zsh_functions
 [ -f $HOME/.git_functions ] && source $HOME/.git_functions
 [ -f $HOME/.mymacros.bash ] && source $HOME/.mymacros.bash
+[ -f $HOME/git/forgit/forgit.plugin.zsh ] && source $HOME/git/forgit/forgit.plugin.zsh
 [ -f /usr/local/share/zsh-syntax-highlightint/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
