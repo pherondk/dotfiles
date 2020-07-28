@@ -16,7 +16,8 @@ function addmac() {
 }
 
 fzfcmdmacro() {
-  [ ${FZF_TMUX:-1} -eq 1 ] && echo "fzf-tmux -d${FZF_TMUX_HEIGHT:-20%} --reverse" || echo "fzf"
+  [ ${FZF_TMUX:-1} -eq 1 ] && echo "fzf-tmux -p --reverse" || echo "fzf"
+  # [ ${FZF_TMUX:-1} -eq 1 ] && echo "fzf-tmux -d${FZF_TMUX_HEIGHT:-20%} --reverse" || echo "fzf"
 }
 
 function mac() {

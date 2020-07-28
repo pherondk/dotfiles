@@ -156,6 +156,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200' --select-1 --exit-0"
 export FZF_BREW_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || brew info {}) 2> /dev/null | head -200' --select-1 --exit-0"
 export FZF_TMUX=1
+FZF_TMUX_OPTS='-p 65%'
 
 # ##################################################################
 # Source

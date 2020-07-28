@@ -8,6 +8,7 @@ alias unifi_client='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicl
 alias unifi_portlist='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest devices ports list 5e88cb330c47440015e5cb5d'
 alias docui='docker run --rm -itv /var/run/docker.sock:/var/run/docker.sock skanehira/docui'
 alias sk='seekkill'
+alias zz='zq -i'
 alias reload='source ~/.zshrc && echo "ZSH Config Reloaded from ~/.zshrc"'
 alias totp='authenticator generate'
 alias refresh='cd ~/dotfiles && git pull'
