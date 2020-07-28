@@ -29,6 +29,15 @@ dkstats() {
   fi
 }
 
+unifi_client () {#unifi client list
+    export DOCKER_HOST=tcp://192.168.1.9:2375
+    docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest clients list
+}
+
+unifi_ports () {#unifi port list
+    export DOCKER_HOST=tcp://192.168.1.9:2375
+    docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest clients list
+}
 # ##################################################################
 # Container updates
 # ##################################################################
