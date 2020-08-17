@@ -23,7 +23,7 @@ export BROWSER='/Applications/Firefox.app'
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/home/heretic/Library/Python/3.7/bin:/home/heretic/.cargo/bin:/home/heretic/.android-sdk-macosx/platform-tools/:$PATH
 elif [[ "$OSTYPE" == "darwin"* ]]; then 
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:/Users/heretic/.cargo/bin:/home/heretic/.android-sdk-macosx/platform-tools/:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/Cellar:/Users/heretic/Library/Python/3.7/bin:/Users/heretic/.cargo/bin:/Users/heretic/.android-sdk-macosx/platform-tools/:$PATH
 fi
 
 export DISABLE_AUTO_TITLE='true'
