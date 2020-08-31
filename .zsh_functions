@@ -77,6 +77,7 @@ old() { # Backup a file with the extension '.old'
 get_command() {  # Functionalise 'command -v' to allow 'if get_command [command]' idiom
 		command -v "${1}" &>/dev/null; 
 }
+
 printline() { # A function to print a specific line from a file
   # If $1 is empty, print a usage message
   if [[ -z "${1}" ]]; then
@@ -146,10 +147,6 @@ tm () { # switch between tmux sessions or create new if not
 	session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0)  && tmux $change -t "$session" || echo "No sessions found."
 }
 
-function notify { #notify from terminal
-		terminal-notifier -title "$1" -message "$2" 
-}
-
 rtvb() { #declare Firefox as browser just for rtv and launch rtv
 		export BROWSER="/Applications/Firefox.app"
 		rtv --theme solarized-dark
@@ -166,6 +163,7 @@ tkillpane () { #kill tmux panes by number
 				done
 		fi
 }
+
 function _calcram() { #used for ram and rams
     local sum
     sum=0
