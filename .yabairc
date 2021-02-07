@@ -33,22 +33,50 @@ yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 
 # general space settings
+<<<<<<< HEAD
 yabai -m config external_bar                 all:0:20
 yabai -m config layout                       bsp
 yabai -m config top_padding                  35 
 yabai -m config bottom_padding               "-10"
+=======
+yabai -m config layout                       bsp
+yabai -m config top_padding                  20
+yabai -m config bottom_padding               2
+>>>>>>> f24b1798fddb8ea62fa368e79aaa92dabb14dcff
 yabai -m config left_padding                 10
 yabai -m config right_padding                10
 yabai -m config window_gap                   5
 
-# apps not tiled
+# make stickies are not tiled
 yabai -m rule --add app=Stickies manage=off
 yabai -m rule --add app=Karabiner-Elements manage=off
 yabai -m rule --add app=Alfred manage=off
+<<<<<<< HEAD
 yabai -m rule --add app="System Preferences" manage=off
 
 yabai -m signal --add event=space_changed \
     action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
 
+=======
+yabai -m rule --add app=NoMachine manage=off
+yabai -m rule --add app="System Preferences" manage=off
+yabai -m rule --add app="Authy" manage=off
+
+
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+
+yabai -m signal --add event=space_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-tertiary-jsx\"'"
+yabai -m signal --add event=display_changed \
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-tertiary-jsx\"'"
+>>>>>>> f24b1798fddb8ea62fa368e79aaa92dabb14dcff
 
 echo "yabai configuration loaded.."

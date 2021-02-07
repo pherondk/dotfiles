@@ -6,7 +6,6 @@
 alias unicli='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest'
 # alias unifi_client='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest clients list'
 alias unifi_portlist='docker run -e UNIFI_HOST=$UNIFI_HOST -e UNIFI_USERNAME=unicli -e UNIFI_PASSWORD=unicli --rm apognu/unicli:latest devices ports list 5e88cb330c47440015e5cb5d'
-alias docui='docker run --rm -itv /var/run/docker.sock:/var/run/docker.sock skanehira/docui'
 alias sk='seekkill'
 alias reload='source ~/.zshrc && echo "ZSH Config Reloaded from ~/.zshrc"'
 alias totp='authenticator generate'
@@ -17,6 +16,7 @@ alias ll='ls -alhG'
 alias jj='mac'
 alias arping='sudo arping'
 alias gotosleep='pmset sleepnow'
+alias yabedit='vi ~/.yabairc && source ~/.yabairc'
 alias edit='vi ~/.zshrc && reload'
 alias softwareupdate='sudo softwareupdate'
 alias wireless='networksetup -setairportpower en1 '$1''
@@ -35,8 +35,12 @@ alias dcl='docker container ls'
 alias dcla='docker container ls -a'
 alias dcs='docker container start $1'
 alias dcst='docker container stop $1'
+<<<<<<< HEAD
 alias b='~/scripts/b.rb'
 alias mps='rm -rf ~/.config/mps-youtube/cache_py_3.9.1 && mpsyt'
+=======
+# alias b='~/scripts/b.rb'
+>>>>>>> f24b1798fddb8ea62fa368e79aaa92dabb14dcff
 
 
 # #####################################################################
