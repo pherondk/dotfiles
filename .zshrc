@@ -16,6 +16,7 @@ if [[ $TERM != linux ]]; then
 print -Pn "\e]2;%~ :  $1\a"
 fi
 }
+export DOCKER_HOST=tcp://192.168.1.9:2375
 export UNIFI_HOST="https://192.168.1.9:8443"
 # export BROWSER='/usr/local/bin/w3m'
 export BROWSER='/Applications/Firefox.app'

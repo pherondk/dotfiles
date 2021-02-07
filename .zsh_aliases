@@ -36,6 +36,7 @@ alias dcla='docker container ls -a'
 alias dcs='docker container start $1'
 alias dcst='docker container stop $1'
 alias b='~/scripts/b.rb'
+alias mps='rm -rf ~/.config/mps-youtube/cache_py_3.9.1 && mpsyt'
 
 
 # #####################################################################
