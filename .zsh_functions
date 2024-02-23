@@ -11,11 +11,20 @@
 dkclean() {
 		  sudo docker rm $(docker ps --all -q -f status=exited)
 		    sudo docker volume rm $(docker volume ls -qf dangling=true)
-			
+fdex() {
+	CONTAINER=`docker ps | rg -v CONTAINER | awk '-F ' ' {print $NF}' | fzf`
+	if [ ! -z $CONTAINER ]
+	then
+		docker exec -it $CONTAINER bash
+	fi
 }
 
-dkln() {
-  sudo docker logs -f `docker ps | grep $1 | awk '{print $1}'`
+flog() {
+	CONTAINER=`docker ps | rg -v CONTAINER | awk '-F ' ' {print $NF}' | fzf`
+	if [ ! -z $CONTAINER ]
+	then
+		docker logs -f $CONTAINER
+	fi
 }
 
 dktop() {
